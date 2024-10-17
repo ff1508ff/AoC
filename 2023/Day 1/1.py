@@ -9,7 +9,7 @@ def FindNumber(line):
             if first_number is None:
                 first_number = int(char)
             last_number = int(char)
-            
+
     number = first_number*10 + last_number
     return number
 
