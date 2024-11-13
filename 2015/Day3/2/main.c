@@ -1,12 +1,12 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 // I need this for memset
 #include <string.h>
 
-int main (int argc, char *argv[]) {
-    FILE* fptr = fopen("../input.txt", "r");
+int main(int argc, char *argv[]) {
+    FILE *fptr = fopen("../input.txt", "r");
     if (fptr == NULL) {
         printf("File not found\n");
         return 1;
@@ -16,12 +16,12 @@ int main (int argc, char *argv[]) {
     int maxHeight = 0;
 
     for (char c = fgetc(fptr); c != EOF; c = fgetc(fptr)) {
-        if (c == 'v' || c == '^'){
+        if (c == 'v' || c == '^') {
             maxHeight++;
             continue;
         }
 
-        if (c == '<' || c == '>'){
+        if (c == '<' || c == '>') {
             maxWidth++;
             continue;
         }
@@ -31,8 +31,8 @@ int main (int argc, char *argv[]) {
     fseek(fptr, 0, SEEK_SET);
 
     // dynamic 2d array
-    bool** map = malloc(maxHeight * sizeof(bool*));
-    for (int i = 0; i < maxHeight; i++){
+    bool **map = malloc(maxHeight * sizeof(bool *));
+    for (int i = 0; i < maxHeight; i++) {
         map[i] = malloc(maxWidth * sizeof(bool));
     }
 
@@ -46,9 +46,9 @@ int main (int argc, char *argv[]) {
     bool SantaTurn = true;
 
     for (char c = fgetc(fptr); c != EOF; c = fgetc(fptr)) {
-        // I'm using a pointer, because it ceaps things cleaner (I think)
-        int* x = SantaTurn ? &SantaX : &RobotX;
-        int* y = SantaTurn ? &SantaY : &RobotY;
+        // I'm using a pointer, because it keeps things cleaner (I think)
+        int *x = SantaTurn ? &SantaX : &RobotX;
+        int *y = SantaTurn ? &SantaY : &RobotY;
         if (c == 'v') {
             (*y)--;
         } else if (c == '^') {
@@ -59,7 +59,7 @@ int main (int argc, char *argv[]) {
             (*x)++;
         }
 
-        if (map[*y][*x] == false){
+        if (map[*y][*x] == false) {
             newHouses++;
             map[*y][*x] = true;
         }
@@ -67,7 +67,7 @@ int main (int argc, char *argv[]) {
     }
     printf("Santa and the Robot visited %d unique houses\n", newHouses);
 
-    for (int i = 0; i < maxHeight; i++){
+    for (int i = 0; i < maxHeight; i++) {
         free(map[i]);
     }
     free(map);
