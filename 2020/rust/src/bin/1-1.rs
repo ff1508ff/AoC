@@ -1,20 +1,19 @@
-use std::{collections::HashMap, fs};
+use std::{collections::HashSet, fs};
 
 fn main() {
     let input = fs::read_to_string("../inputs/1.txt").expect("Couldn't read the file");
-    let mut memory: HashMap<u32, u32> = HashMap::new();
-    for line in input.split("\n") {
-        if line.is_empty() {
-            continue;
-        }
-        let line: u32 = line.parse::<u32>().unwrap();
-        let div = 2020 - line;
-        if memory.contains_key(&line) {
-            println!("{}", line * memory.get(&line).unwrap());
+
+    let mut memory: HashSet<u32> = HashSet::new();
+
+    for line in input.lines().filter(|l| !l.is_empty()) {
+        let number: u32 = line.parse::<u32>().unwrap();
+        let div = 2020 - number;
+        if memory.contains(&div) {
+            println!("{}", number * div);
             return;
-        } else {
-            memory.insert(div, line);
         }
+
+        memory.insert(number);
     }
     println!("nope");
 }
