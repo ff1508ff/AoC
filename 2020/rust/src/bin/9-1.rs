@@ -6,24 +6,21 @@ fn main() {
     input.lines().for_each(|l| list.push(l.parse().unwrap()));
 
     let mut down: usize = 0;
-    let mut up: usize = 25;
     let mut found: bool = false;
 
-    while true {
-        'outer: for a in down..up {
-            for b in a..up {
-                if list[up] == list[a] + list[b] {
+    for down in 0..list.len() {
+        'outer: for a in down..down + 25 {
+            for b in a..down + 25 {
+                if list[down + 25] == list[a] + list[b] {
                     found = true;
                     break 'outer;
                 }
             }
         }
         if !found {
-            println!("{}", list[up]);
+            println!("{}", list[down + 25]);
             return;
         }
         found = false;
-        down += 1;
-        up += 1;
     }
 }
