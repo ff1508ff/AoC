@@ -12,19 +12,20 @@ fn main() {
 
     let mut time: usize = 1;
     let mut last_number: usize = 0;
-    for number in input {
+    for &number in &input[..input.len() - 1] {
         memory.insert(number, time);
-        last_number = number;
         time += 1;
     }
 
-    while time != 2021 {
+    let mut last_number = *input.last().unwrap();
+
+    while time != 2020 {
         let next = if let Some(last_time) = memory.get(&last_number) {
-            time - 1 - *last_time
+            time - *last_time
         } else {
             0
         };
-        memory.insert(last_number, time - 1);
+        memory.insert(last_number, time);
         last_number = next;
         time += 1;
     }
