@@ -1,4 +1,4 @@
-use std::{collections::HashSet, fs};
+use std::{collections::HashSet, fs, usize};
 
 use regex::Regex;
 
@@ -11,10 +11,12 @@ fn main() {
 
     for line in input.split("\n\n").nth(0).unwrap().lines() {
         let rules = re_rules.captures(line).unwrap();
-        (rules["number1"].parse().unwrap()..=rules["number2"].parse().unwrap())
-            .for_each(|n| _ = valid.insert(n));
-        (rules["number3"].parse().unwrap()..=rules["number4"].parse().unwrap())
-            .for_each(|n| _ = valid.insert(n));
+        valid.extend(
+            rules["number1"].parse::<usize>().unwrap()..=rules["number2"].parse::<usize>().unwrap(),
+        );
+        valid.extend(
+            rules["number3"].parse::<usize>().unwrap()..=rules["number4"].parse::<usize>().unwrap(),
+        );
     }
 
     let mut result = 0;
